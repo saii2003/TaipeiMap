@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="myMemberModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="myMemberModelStoreContainer">
+          <EntitySet Name="member" EntityType="myMemberModel.Store.member" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="sex" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="mail" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="authcode" Type="nvarchar" MaxLength="255" />
+          <Property Name="isadmin" Type="bit" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="myMemberModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="myMemberEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="member" EntityType="myMemberModel.member" />
+        </EntityContainer>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="sex" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="mail" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="authcode" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="isadmin" Type="Boolean" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="myMemberModelStoreContainer" CdmEntityContainer="myMemberEntities">
+          <EntitySetMapping Name="member"><EntityTypeMapping TypeName="myMemberModel.member"><MappingFragment StoreEntitySet="member">
+            <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="username" ColumnName="username" />
+            <ScalarProperty Name="password" ColumnName="password" />
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="sex" ColumnName="sex" />
+            <ScalarProperty Name="mail" ColumnName="mail" />
+            <ScalarProperty Name="authcode" ColumnName="authcode" />
+            <ScalarProperty Name="isadmin" ColumnName="isadmin" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="myMember">
+        <EntityTypeShape EntityType="myMemberModel.member" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3880013020833331" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,70 @@
+﻿@model myMember.Models.member
+
+@{
+    ViewBag.Title = "新增資料";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+.content
+{
+    margin:0px auto;
+    width:50%;
+}
+
+</style>
+<div class="content">
+<h2>新增資料</h2>
+
+@using (Html.BeginForm())
+{
+    
+    <div class="form-group">
+    <label>帳號：</label>
+            @Html.TextBoxFor(model => model.username, new { @class = "form-control", @placeholder = "請輸入帳號" })
+            @Html.ValidationMessageFor(model => model.username)
+    </div>
+    <div class="form-group">
+    <label>密碼： </label>
+            @Html.PasswordFor(model => model.password, new { @class = "form-control", @placeholder = "請輸入密碼" })
+            @Html.ValidationMessageFor(model => model.password)
+            </div>
+<div class="form-group">
+    <label>暱稱： </label>
+            @Html.TextBoxFor(model => model.name, new { @class = "form-control", @placeholder = "請輸入暱稱" })
+         
+            @Html.ValidationMessageFor(model => model.name)
+            </div>
+ <div class="form-group">
+    <label>性別 ：</label>
+    <label class="radio-inline">
+            @Html.RadioButtonFor(model => model.sex,"男")男
+     </label>
+     <label class="radio-inline">
+            @Html.RadioButtonFor(model => model.sex,"女")女
+     </label>
+            @Html.ValidationMessageFor(model => model.sex)
+   
+            </div>
+<div class="form-group">
+    <label>電子郵件： </label>
+            @Html.TextBoxFor(model => model.mail, new { @class = "form-control", @placeholder = "請輸入電子郵件" })
+            @Html.ValidationMessageFor(model => model.mail)
+            </div>
+ <div class="form-group">
+    <label>權限： </label>
+            @Html.CheckBoxFor(model => model.isadmin) 管理者權限
+            @Html.ValidationMessageFor(model => model.isadmin)
+        </div>
+        <div class="text-left" style="color:Red">
+        @Html.ValidationSummary(true)
+        </div>
+        <div class="text-right">
+            <input type="submit" value="新增" class="btn btn-primary" />
+        </div>
+
+}
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

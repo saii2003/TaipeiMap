@@ -1,0 +1,8 @@
+myMember.csproj
+myMember.csproj.user
+myMember.Publish.xml
+Web.Debug.config
+Web.Release.config
+obj
+bin
+Properties

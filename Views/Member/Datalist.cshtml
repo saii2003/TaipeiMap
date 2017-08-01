@@ -1,0 +1,94 @@
+﻿@model IEnumerable<myMember.Models.member>
+
+@{
+    ViewBag.Title = "會員資料";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+.content
+{
+    margin:0px auto;
+    width:100%;
+}
+tr.theader th
+{
+    text-align:center;
+}
+.data
+{
+    margin:8px 0px 0px 0px;
+}
+.count
+{
+    margin:0px 0px 8px 0px;
+}
+</style>
+
+<h2>會員資料</h2>
+
+<p>
+    @Html.ActionLink("新增資料", "Create", null, new { @class="btn btn-primary" })
+</p>
+<div class="content">
+<table class="table table-hover text-center">
+    <tr class="theader">
+    <th>
+            編號
+        </th>
+        <th>
+            帳號
+        </th>
+        <th>
+            密碼
+        </th>
+        <th>
+            暱稱
+        </th>
+        <th>
+            性別
+        </th>
+        <th>
+           電子郵件
+        </th>
+        <th>
+            驗證碼
+        </th>
+        <th>
+            權限
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+    <td>
+            @Html.DisplayFor(modelItem => item.id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mail)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.isadmin)
+        </td>
+        <td>
+            @Html.ActionLink("編輯", "Edit", new { id = item.id }, new { @class="btn btn-primary"}) 
+            @Html.ActionLink("刪除", "Delete", new { id = item.id }, new { @class = "btn btn-primary" })
+        </td>
+    </tr>
+}
+
+</table>
+</div>

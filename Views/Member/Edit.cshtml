@@ -1,0 +1,80 @@
+﻿@model myMember.Models.member
+
+@{
+    ViewBag.Title = "Edits";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+.content
+{
+    margin:0px auto;
+    width:50%;
+}
+
+.count
+{
+    margin:0px 0px 8px 0px;
+}
+.form-control
+{
+    width:300px;
+}
+</style>
+
+<div class="content">
+
+<h2>編輯會員資料</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+
+        @Html.HiddenFor(model => model.id)
+        
+        <div class="form-group">
+            <label>帳號：</label>
+            @Html.DisplayTextFor(model => model.username)
+            @Html.ValidationMessageFor(model => model.username)
+        </div>
+
+        <div class="form-group">
+            暱稱：
+
+            @Html.TextBoxFor(model => model.name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="form-group">
+            性別：
+
+            @Html.RadioButtonFor(model => model.sex, "男")男
+            @Html.RadioButtonFor(model => model.sex, "女")女
+            @Html.ValidationMessageFor(model => model.sex)
+        </div>
+
+        <div class="form-group">
+            電子郵件：
+
+            @Html.TextBoxFor(model => model.mail, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.mail)
+        </div>
+
+        <div class="form-group">
+            權限：
+     
+            @Html.EditorFor(model => model.isadmin)
+            @Html.ValidationMessageFor(model => model.isadmin)
+        </div>
+
+        <div class="text-right">
+            <input type="submit" value="編輯" class="btn btn-primary" />
+        </div>
+
+}
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

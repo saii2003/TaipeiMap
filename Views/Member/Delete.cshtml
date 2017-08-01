@@ -1,0 +1,74 @@
+﻿@model myMember.Models.member
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+<script src="../../Scripts/jquery-1.7.1.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".delete").click(function () {
+            confirm('您確定要刪除資料');
+        });
+    });
+
+</script>
+<style>
+.content
+{
+    margin:0px auto;
+    width:40%;
+}
+.display-field
+{
+    padding:5px 0px;
+}
+
+</style>
+<div class="content">
+
+<h3>您確定要刪除此筆資料?</h3>
+
+    
+    <div class="display-field">
+      帳號：@Html.DisplayFor(model => model.username)
+    </div>
+
+
+    <div class="display-field">
+       密碼：@Html.DisplayFor(model => model.password)
+    </div>
+
+
+    <div class="display-field">
+        暱稱：@Html.DisplayFor(model => model.name)
+    </div>
+
+    
+    <div class="display-field">
+        性別：@Html.DisplayFor(model => model.sex)
+    </div>
+
+    
+    <div class="display-field">
+       電子郵件：@Html.DisplayFor(model => model.mail)
+    </div>
+
+    
+    <div class="display-field">
+        驗證碼：@Html.DisplayFor(model => model.authcode)
+    </div>
+
+
+    <div class="display-field">
+       權限： @Html.DisplayFor(model => model.isadmin)
+    </div>
+
+@using (Html.BeginForm()) {
+    <div class="text-right">
+        <input type="submit" value="刪除" class="delete btn btn-primary"/> 
+
+    </div>
+}
+</div>

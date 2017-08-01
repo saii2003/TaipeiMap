@@ -1,0 +1,51 @@
+﻿@model myMember.Models.ChangePwViewModel
+
+@{
+    ViewBag.Title = "修改密碼";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.content
+{
+    width:40%;
+    margin:0px auto;
+}
+
+
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="content">
+    <h2>修改密碼</h2>
+    <div class="form-group">
+            @Html.LabelFor(model => model.password)
+
+            @Html.PasswordFor(model => model.password, new { @class = "form-control",placeholder="請輸入舊密碼" })
+            @Html.ValidationMessageFor(model => model.password)
+    </div>
+    <div class="form-group">
+            @Html.LabelFor(model => model.newPassword)
+
+            @Html.PasswordFor(model => model.newPassword, new { @class = "form-control",placeholder="請輸入新密碼" })
+            @Html.ValidationMessageFor(model => model.newPassword)
+    </div>
+    <div class="form-group">
+            @Html.LabelFor(model => model.confirmPassword)
+
+            @Html.PasswordFor(model => model.confirmPassword, new { @class = "form-control",placeholder="請輸入確認新密碼" })
+            @Html.ValidationMessageFor(model => model.confirmPassword)
+    </div>
+
+        <div class="text-right">
+            <input type="submit" value="確定" class="btn btn-primary"/>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "景點周圍查詢";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+.mapscontent
+{
+    width:85%;
+    margin:0px auto;
+}
+#end
+{
+    height:230px;
+}
+
+</style>
+     <script>
+         var map;
+         var infowindow;
+
+         function initsMap() {
+             var defaultLatlng = { lat: 25.033893, lng: 121.564488 };//初始座標
+
+             map = new google.maps.Map(document.getElementById('map'), {
+                 center: defaultLatlng,
+                 zoom: 16
+             });
+
+             infowindow = new google.maps.InfoWindow();
+            
+
+             var service = new google.maps.places.PlacesService(map);
+             document.getElementById('confirm').addEventListener('click', function () {
+                 var circles = [];
+                 //設定座標
+                 var searchString = document.getElementById('end').value;
+                 var commaPos = searchString.indexOf(',');
+                 var lat = parseFloat(searchString.substring(0, commaPos));
+                 var lng = parseFloat(searchString.substring(commaPos + 1, searchString.length));
+                 var latlngs = new google.maps.LatLng(lat, lng);
+                 //設定查詢項目
+                 var searchType = document.getElementById('type').options[document.getElementById('type').selectedIndex].value;
+                 //設定範圍
+                 var circle = document.getElementById('radius').options[document.getElementById('radius').selectedIndex].value;
+
+                 //設定圓參數
+                 var circleOptions = {
+                     strokeColor: "#FF0040",
+                     strokeOpacity: 0.1,
+                     strokeWeight: 1,
+                     fillColor: "#DF013A",
+                     fillOpacity: 0.1,
+                     map: map,
+                     center: latlngs,
+                     radius: parseInt(circle)
+                 };
+                 //畫圓
+                 circles.push(new google.maps.Circle(circleOptions));
+
+                 service.nearbySearch({
+                     location: latlngs,
+                     radius: parseInt(circle),
+                     types: [searchType]
+                 }, callback);
+                 map.setCenter(latlngs);
+             });
+         }
+         function callback(results, status) {
+             if (status === google.maps.places.PlacesServiceStatus.OK) {
+                 for (var i = 0; i < results.length; i++) {
+                     createMarker(results[i]);
+                 }
+          
+             }
+         }
+
+         function createMarker(place) {
+             var placeLoc = place.geometry.location;
+             var marker = new google.maps.Marker({
+                 map: map,
+                 position: place.geometry.location
+             });
+
+
+
+
+             google.maps.event.addListener(marker, 'click', function () {
+                 var placeRating = null;
+                 if (place.rating == "undefined") {
+                     place.rating = "0";
+                 }
+                 else {
+                     placeRating = place.rating;
+                 }
+
+
+                 infowindow.setContent(place.name + "<br/>" + "推薦指數：" + placeRating + " 顆星");
+                 infowindow.open(map, this);
+             });
+         }
+         
+    </script>
+
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2">
+<div class="form-group">
+<h4>景點周圍查詢</h4>
+        <label>旅遊景點</label>
+         <select class="form-control" id="end" multiple>
+          <option value="25.033893, 121.564488 ">台北101</option>
+          <option value="25.044953, 121.505978">西門町</option>
+          <option value="24.998852, 121.581068">動物園</option>   
+          <option value="25.194251, 121.5587476">陽明山</option>
+          <option value="25.087794, 121.524224">士林市場</option>
+          <option value="25.037143, 121.499890">台北龍山寺</option>
+          <option value="25.062927, 121.533599">台北行天宮</option> 
+          <option value="25.034741, 121.521913">中正紀念堂</option>
+          <option value="25.039525, 121.560267">國父紀念館</option>
+          <option value="25.044047, 121.561205">松山文創園區</option>
+          <option value="25.044121, 121.529378">華山1914文創園區</option>
+        </select>
+</div>
+<div class="form-group">
+        <label>範圍</label>
+         <select class="form-control" id="radius">
+          <option value="">請選擇範圍</option>
+         <option value="500">500公尺</option>
+         <option value="1000">1公里</option>
+         <option value="2000">2公里</option>
+       </select>
+</div>
+<div class="form-group">
+        <label>查詢項目</label>
+         <select class="form-control" id="type">
+         <option value="">請選擇查詢項目</option>
+         <option value="subway_station">捷運站</option>
+         <option value="parking">停車場</option>   
+          <option value="restaurant">餐廳</option>
+          <option value="gas_station">加油站</option>
+          <option value="police">警察局</option>
+          <option value="convenience_store">便利商店</option>
+          <option value="department_store">百貨公司</option>
+         
+        </select>
+</div>
+        <div class="text-right">
+        <button class="btn btn-primary" id="confirm" onclick="initsMap();">查詢</button>
+        </div>
+        </div>
+        <div class="col-md-10">
+ <div id="map" style="width:100%; height: 500px;"></div>
+ </div>
+ </div>
+ </div>
+
+
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbBZ2YfJVXGDif2Fv9ggvr7V8JepMX5xw&signed_in=true&libraries=places&callback=initsMap" async defer></script>

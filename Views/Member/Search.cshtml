@@ -1,0 +1,107 @@
+﻿@model IEnumerable<myMember.Models.member>
+
+@{
+    ViewBag.Title = "會員管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+.content
+{
+    margin:0px auto;
+    width:80%;
+}
+tr.theader th
+{
+    text-align:center;
+}
+.data
+{
+    margin:8px 0px 0px 0px;
+}
+.count
+{
+    margin:0px 0px 8px 0px;
+}
+</style>
+
+    @Html.Raw(TempData["msg"]);
+
+    
+<div class="content">
+
+<h2>會員查詢</h2>
+@using(Html.BeginForm("Search","Member",FormMethod.Get))
+{
+    <div class="form-inline">
+    <div class="form-group">
+        <text>查詢類型：</text> @Html.RadioButton("searchBy", "username", true, new { @class = "form-control" })<text> 帳號</text>
+        @Html.RadioButton("searchBy", "gender", false, new { @class = "form-control" })<text> 性別</text><br>
+    </div>
+    </div>
+    <div class="form-inline">
+    <div class="form-group">
+    <text>查詢：</text> @Html.TextBox("searchStr", null, new { @class = "form-control", placeholder = "請輸入查詢字串" }) <input type="submit" value="查詢" class="btn btn-primary" />
+    </div>
+    </div>
+}
+<div class="data">
+@if (Model.Count() != 0)
+{
+    <div class="count">
+<text>共有</text> @Model.Count().ToString() <text>筆資料。</text>
+</div>
+    <table class="table table-hover table-striped text-center">
+    <thead>
+    <tr class="theader">
+    
+        <th>編號</th>
+        <th>帳號</th>
+        <th>密碼</th>
+        <th>姓名</th>         
+        <th>性別</th>
+        <th>電子郵件</th>
+        <th>權限</th>
+        <th></th>
+    </tr>
+    </thead>
+@foreach (var item in Model)
+{
+<tbody>
+    <tr>
+    
+        <td>
+            @item.id
+        </td>
+        <td>
+            @item.username
+        </td>
+        <td>
+            @item.password
+        </td>
+        <td>
+            @item.name
+
+        </td>
+        <td>
+            @item.sex
+        </td>
+        <td>
+            @item.mail
+        </td>
+        <td>
+            @item.isadmin
+        </td>
+        <td>
+            @Html.ActionLink("編輯", "Edit", new { id = item.id }, new { @class="btn btn-primary"}) 
+            @Html.ActionLink("刪除", "Delete", new { id = item.id }, new { @class = "btn btn-primary" })
+        </td>
+    </tr>
+</tbody>
+
+}
+</table>
+}
+
+</div>
+
+</div>

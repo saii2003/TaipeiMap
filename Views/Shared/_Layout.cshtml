@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>@ViewBag.Title</title>
+  
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+   
+
+      
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+    
+    .navbar
+    {
+        border-radius:0px;
+    }
+    footer
+    {
+        padding:20px 0px 20px 0px;
+        margin: 20px 0px 0px 0px;
+        background-color:Black;
+        color:White;
+    }
+    footer a
+    {
+        color:White;
+    }
+    html { height: 100%; } 
+	  body { height: 100%; margin: 0px;} 
+	  #map { height: 70% ; width:70%;} 
+
+
+</style>
+
+</head>
+<body>
+<script>    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.5";
+        fjs.parentNode.insertBefore(js, fjs);
+    } (document, 'script', 'facebook-jssdk'));</script>
+
+<nav class="navbar navbar-inverse" role="navigation">
+<div class="container">
+<div class="navbar-header">
+<a href="@Url.Action("Intro", "Member")" class="navbar-brand">台北旅遊</a></div>
+<ul class="nav navbar-nav">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle active4" data-toggle="dropdown" role="botton" aria-expanded="false">旅遊地圖 <span class="caret"></span></a>
+<ul class="dropdown-menu" role="menu">
+<li><a class="active2" href="@Url.Action("Intro","Member")">導覽地圖</a></li>
+<li><a class="active3" href="@Url.Action("Map","Member")">路線地圖</a></li>
+<li><a class="active3" href="@Url.Action("Intros","Member")">周圍查詢</a></li>
+
+</ul>
+</li>
+
+
+<li class="dropdown">
+<a href="#" class="dropdown-toggle active4" data-toggle="dropdown" role="botton" aria-expanded="false">會員專區 <span class="caret"></span></a>
+<ul class="dropdown-menu" role="menu">
+<li><a href="@Url.Action("forgetPw","Member")">忘記密碼</a></li>
+<li><a href="@Url.Action("Changepw","Member")">修改密碼</a></li>
+<li><a href="@Url.Action("ChangeMemData","Member")">修改會員資料</a></li>
+</ul>
+</li>
+@{
+    if(User.Identity.IsAuthenticated)
+    {
+    FormsAuthenticationTicket ticket= ((FormsIdentity)User.Identity).Ticket;
+    if(ticket.UserData == "True")
+    {
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle active5" data-toggle="dropdown" role="botton" aria-expaned="false">會員管理 <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+        <li><a href="@Url.Action("Datalist","Member")">會員資料</a></li>
+        <li><a href="@Url.Action("Search","Member")">資料查詢</a></li>
+        </ul>
+        </li>
+    }
+    }
+    }
+    
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="@Url.Action("Register","Member")">加入會員</a></li>
+@if (User.Identity.IsAuthenticated)
+{
+ 
+   <li><a href="@Url.Action("Logout", "Member")">Hi,@User.Identity.Name <span class="glyphicon glyphicon-log-out"></span> 登出</a></li>
+}
+else
+{
+
+    <li><a href="@Url.Action("Login", "Member")">Hi,訪客  <span class="glyphicon glyphicon-log-in"></span> 登入</a></li>
+}
+
+</ul>
+</div>
+</nav>
+<div class ="container-fluid">
+<div class="row">
+<div class=" col-md-12">
+    @RenderBody()
+    </div>
+    </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+<footer class="text-center">
+Copyright©2015 saii2003@hotmail.com All Rights Reserved<br/>
+
+                    如有問題請來 <a href="mailto:saii2003@hotmail.com"><i class="glyphicon glyphicon-envelope"></i></a>。
+</footer>
+</body>
+</html>
