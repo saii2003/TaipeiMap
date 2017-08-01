@@ -15,10 +15,6 @@ namespace myMember.Controllers
         private MemberService mem = new MemberService();
         //
         // GET: /Member/
-        public ActionResult googlemap()
-        {
-            return View();
-        }
         #region 註冊
         public ActionResult Register()
         {
