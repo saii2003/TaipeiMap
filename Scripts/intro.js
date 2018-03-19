@@ -40,7 +40,7 @@ var latlngs = [
 '<div class="text"><img class="img-thumbnail" src="~/Content/themes/base/images/slin.jpg" />士林夜市或稱士林市場，位於臺灣臺北市士林區，以攤販範圍界於東邊文林路、西邊基河路、北邊小北街與小西街內為主的三角地帶，是台北市內最大、最為人所知的夜市。並多次獲選為台灣代表夜市，揚名國際。士林夜市原本是以小吃與攤商而興起。士林夜市與其他大型固定夜市共同維繫著這一特殊的文化現象，也成為台北人夜生活的經常去處。<div class="text-right" style="padding:5px 0px;">資料來源：維基百科</div></div><address>聯絡資訊：<br> 地址：台北市士林區基河路101號<br>電話：02-2881-5557</address>'
 ,"~/Content/themes/base/images/slinicon.png"]
 ];
-//地圖
+/*建立初始地圖，設定初始座標*/
 function initMap() {
     var mapLatlngs = { lat: 25.0540009, lng: 121.5626713 }
     map = new google.maps.Map(document.getElementById('map'), {
@@ -51,10 +51,12 @@ function initMap() {
     
    
 }
-//建立新Markers
+/*建立自訂的新Markers*/
 function setMarkers(map, latlngs) {
     var marker,i;
     var infowindow = new google.maps.InfoWindow({maxWidth:400});
+	
+	//在googleMap插入自訂的Marker
     for (i = 0; i < latlngs.length; i++) {
         
         var lat = latlngs[i][1];
@@ -63,16 +65,16 @@ function setMarkers(map, latlngs) {
 
         var marker = new google.maps.Marker({
             map: map,
-            position: travelLatlng,
-            title: latlngs[i][0],
-            icon:latlngs[i][4] 
+            position: travelLatlng, //景點座標
+            title: latlngs[i][0], //景點名稱
+            icon:latlngs[i][4] //自訂景點icon的檔案位置
         });
 
-
+        //infowindow中插入各景點簡介內容
         var iconcontent = latlngs[i][0];
-        //infowindow 內容
         var content ='<div class="mcontainer"><div class="title">' + latlngs[i][0] + '</div><div class="mcontent">'+ latlngs[i][3] +'</div></div>';
-
+		
+		//開啟infowindow景點簡介
         google.maps.event.addListener(marker, 'click', (function (marker, content, infowindow) {
             return function () {
                 infowindow.setContent(content);
@@ -81,7 +83,8 @@ function setMarkers(map, latlngs) {
                 map.setZoom(17);
             };
         })(marker, content, infowindow));
-
+		
+		//關閉infowindow景點簡介
         google.maps.event.addDomListener(infowindow, "closeclick", function () {
             google.maps.event.trigger(map, "close");
             map.setZoom(12);
